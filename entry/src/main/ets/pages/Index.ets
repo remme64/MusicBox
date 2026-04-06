@@ -3,6 +3,7 @@ import promptAction from '@ohos.promptAction';
 import { Song, DEFAULT_SONGS } from '../model/Song';
 import { AudioManager, PlaybackState, getAudioManager } from '../utils/AudioManager';
 import { getAVSessionUtil } from '../utils/AVSessionUtil';
+import { getStorageManager } from '../utils/StorageManager';
 import { parseLrc, ParsedLyrics } from '../utils/LyricParser';
 import { AlbumCover } from '../components/AlbumCover';
 import { LyricViewCompact } from '../components/LyricView';
@@ -31,6 +32,7 @@ struct Index {
   @State volume: number = 1.0;
   @State lyrics: ParsedLyrics | null = null;
   @State isLyricsEnabled: boolean = true;
+  @State isFavorite: boolean = false;
 
   // Sample LRC content for demo
   private readonly SAMPLE_LYRICS: string = `[ti:Dream Waves]
@@ -78,6 +80,19 @@ struct Index {
 
     // Initialize player with first song
     this.initializePlayer();
+
+    // Check if current song is favorite
+    this.checkFavorite();
+  }
+
+  /**
+   * Check if current song is favorite
+   */
+  async checkFavorite(): Promise<void> {
+    if (this.currentSong) {
+      const storage = getStorageManager();
+      this.isFavorite = await storage.isFavorite(this.currentSong.id);
+    }
   }
 
   aboutToDisappear(): void {
@@ -105,6 +120,9 @@ struct Index {
 
       // Load song into player
       await this.audioManager.loadSong(firstSong);
+
+      // Check if favorite
+      await this.checkFavorite();
 
       this.isLoading = false;
     } catch (error) {
@@ -141,6 +159,8 @@ struct Index {
         this.totalTimeMs = song.duration;
         // Update AVSession metadata
         this.avSessionUtil.setSongMetadata(song);
+        // Check if new song is favorite
+        this.checkFavorite();
       },
       onError: (error: string) => {
         promptAction.showToast({
@@ -232,12 +252,42 @@ struct Index {
   }
 
   /**
+   * Navigate to home/menu
+   */
+  navigateToHome(): void {
+    router.pushUrl({
+      url: 'pages/HomePage'
+    });
+  }
+
+  /**
    * Navigate to playlist
    */
   navigateToPlaylist(): void {
     router.pushUrl({
       url: 'pages/PlayList'
     });
+  }
+
+  /**
+   * Toggle favorite status
+   */
+  async toggleFavorite(): Promise<void> {
+    if (!this.currentSong) return;
+
+    try {
+      const storage = getStorageManager();
+      if (this.isFavorite) {
+        await storage.removeFavorite(this.currentSong.id);
+        promptAction.showToast({ message: '已取消收藏', duration: 1500 });
+      } else {
+        await storage.addFavorite(this.currentSong);
+        promptAction.showToast({ message: '已添加到收藏', duration: 1500 });
+      }
+      this.isFavorite = !this.isFavorite;
+    } catch (error) {
+      console.error('Failed to toggle favorite:', JSON.stringify(error));
+    }
   }
 
   /**
@@ -304,21 +354,18 @@ struct Index {
   @Builder
   buildTopBar(): void {
     Row() {
-      // Playlist button
+      // Home button
       Button() {
-        Text('☰')
-          .fontSize(24)
-          .fontColor('#ffffff')
+        Text('🏠')
+          .fontSize(20)
       }
-      .width(48)
-      .height(48)
+      .width(40)
+      .height(40)
       .type(ButtonType.Circle)
       .backgroundColor('transparent')
       .onClick(() => {
-        this.navigateToPlaylist();
+        this.navigateToHome();
       })
-
-      Blank()
 
       // Song info
       Column() {
@@ -336,28 +383,39 @@ struct Index {
           .textOverflow({ overflow: TextOverflow.Ellipsis })
       }
       .alignItems(HorizontalAlign.Center)
+      .layoutWeight(1)
 
-      Blank()
-
-      // Lyrics button
+      // Favorite button
       Button() {
-        Text('♪')
-          .fontSize(24)
-          .fontColor('#ffffff')
+        Text(this.isFavorite ? '❤️' : '🤍')
+          .fontSize(20)
       }
-      .width(48)
-      .height(48)
+      .width(40)
+      .height(40)
       .type(ButtonType.Circle)
       .backgroundColor('transparent')
       .onClick(() => {
-        this.navigateToLyrics();
+        this.toggleFavorite();
+      })
+
+      // Menu button
+      Button() {
+        Text('☰')
+          .fontSize(20)
+      }
+      .width(40)
+      .height(40)
+      .type(ButtonType.Circle)
+      .backgroundColor('transparent')
+      .onClick(() => {
+        this.navigateToPlaylist();
       })
     }
     .width('100%')
     .padding({
       left: 16,
       right: 16,
-      top: 16,
+      top: 48,
       bottom: 8
     })
   }

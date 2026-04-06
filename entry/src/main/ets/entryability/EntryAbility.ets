@@ -3,6 +3,7 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 import window from '@ohos.window';
 import { getAVSessionUtil } from '../utils/AVSessionUtil';
 import { getAudioManager } from '../utils/AudioManager';
+import { getStorageManager } from '../utils/StorageManager';
 
 /**
  * EntryAbility - Main application entry point
@@ -24,6 +25,10 @@ export default class EntryAbility extends UIAbility {
     // Initialize AVSession for background playback
     const avSessionUtil = getAVSessionUtil();
     avSessionUtil.initialize(this.context);
+
+    // Initialize storage manager
+    const storageManager = getStorageManager();
+    storageManager.initialize(this.context);
   }
 
   /**
@@ -48,7 +53,7 @@ export default class EntryAbility extends UIAbility {
     hilog.info(0x0000, this.TAG, 'EntryAbility onWindowStageCreate');
 
     // Load main page
-    windowStage.loadContent('pages/Index', (err: object) => {
+    windowStage.loadContent('pages/HomePage', (err: object) => {
       if (err) {
         hilog.error(0x0000, this.TAG, 'Failed to load content: %{public}s', JSON.stringify(err));
         return;

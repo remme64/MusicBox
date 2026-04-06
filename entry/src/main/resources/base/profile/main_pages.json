@@ -1,6 +1,13 @@
 {
   "src": [
     "pages/Index",
+    "pages/HomePage",
+    "pages/LibraryPage",
+    "pages/CategoryPage",
+    "pages/ArtistPage",
+    "pages/HistoryPage",
+    "pages/FavoritesPage",
+    "pages/SearchPage",
     "pages/PlayList",
     "pages/LyricsPage"
   ]

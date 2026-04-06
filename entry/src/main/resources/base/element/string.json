@@ -23,6 +23,34 @@
     {
       "name": "internet_reason",
       "value": "MusicBox does not require internet access"
+    },
+    {
+      "name": "home_title",
+      "value": "MusicBox"
+    },
+    {
+      "name": "library_title",
+      "value": "Song Library"
+    },
+    {
+      "name": "category_title",
+      "value": "Categories"
+    },
+    {
+      "name": "artist_title",
+      "value": "Artists"
+    },
+    {
+      "name": "history_title",
+      "value": "Play History"
+    },
+    {
+      "name": "favorites_title",
+      "value": "My Favorites"
+    },
+    {
+      "name": "search_title",
+      "value": "Search"
     }
   ]
 }
