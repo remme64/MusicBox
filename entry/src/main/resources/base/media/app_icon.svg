@@ -1,0 +1,8 @@
+<!-- MusicBox App Icon -->
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="256" height="256" rx="48" fill="#6366f1"/>
+  <circle cx="128" cy="128" r="80" fill="#1a1a2e"/>
+  <circle cx="128" cy="128" r="70" fill="#252542"/>
+  <circle cx="128" cy="128" r="25" fill="#6366f1"/>
+  <path d="M108 108L168 128L108 148V108Z" fill="#ffffff"/>
+</svg>

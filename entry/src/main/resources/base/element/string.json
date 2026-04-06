@@ -1,0 +1,28 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "MusicBox - OpenHarmony Music Player"
+    },
+    {
+      "name": "ability_desc",
+      "value": "MusicBox Player Ability"
+    },
+    {
+      "name": "entry_ability_label",
+      "value": "MusicBox"
+    },
+    {
+      "name": "app_name",
+      "value": "MusicBox"
+    },
+    {
+      "name": "keep_background_reason",
+      "value": "Music playback needs to continue in background"
+    },
+    {
+      "name": "internet_reason",
+      "value": "MusicBox does not require internet access"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "name": "entry",
+  "version": "1.0.0",
+  "description": "MusicBox entry module",
+  "main": "",
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@ohos/hypium": "1.0.24"
+  }
+}

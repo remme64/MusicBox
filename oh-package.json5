@@ -1,0 +1,11 @@
+{
+  "modelVersion": "6.0.2",
+  "name": "musicbox",
+  "version": "1.0.0",
+  "description": "OpenHarmony Music Box Application",
+  "main": "",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {}
+}

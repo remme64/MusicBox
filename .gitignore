@@ -1,0 +1,23 @@
+# Build outputs
+build/
+.Hvigor/
+.idea/
+*.iml
+
+# Dependencies
+oh_modules/
+node_modules/
+
+# Build artifacts
+*.hap
+*.hsp
+*.hcf
+*.app
+
+# Local config
+*.local
+.env
+
+# OS files
+.DS_Store
+Thumbs.db

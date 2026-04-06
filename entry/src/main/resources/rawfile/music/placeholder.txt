@@ -1,0 +1,8 @@
+# Placeholder for Music Files
+
+Place your MP3 audio files here:
+- song1.mp3
+- song2.mp3
+- song3.mp3
+
+Note: These files are not included due to copyright or size limitations.

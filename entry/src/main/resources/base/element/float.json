@@ -1,0 +1,56 @@
+{
+  "float": [
+    {
+      "name": "cover_size_large",
+      "value": "280"
+    },
+    {
+      "name": "cover_size_medium",
+      "value": "200"
+    },
+    {
+      "name": "cover_size_small",
+      "value": "120"
+    },
+    {
+      "name": "card_border_radius",
+      "value": "24"
+    },
+    {
+      "name": "button_size_large",
+      "value": "64"
+    },
+    {
+      "name": "button_size_medium",
+      "value": "48"
+    },
+    {
+      "name": "button_size_small",
+      "value": "32"
+    },
+    {
+      "name": "spacing_small",
+      "value": "8"
+    },
+    {
+      "name": "spacing_medium",
+      "value": "16"
+    },
+    {
+      "name": "spacing_large",
+      "value": "24"
+    },
+    {
+      "name": "lyric_font_size_active",
+      "value": "24"
+    },
+    {
+      "name": "lyric_font_size_inactive",
+      "value": "16"
+    },
+    {
+      "name": "rotation_duration",
+      "value": "20000"
+    }
+  ]
+}

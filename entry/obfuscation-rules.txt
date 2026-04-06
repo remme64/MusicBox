@@ -1,0 +1,6 @@
+# Obfuscation rules for MusicBox
+# This file is intentionally empty - obfuscation is disabled
+
+# To enable obfuscation, add actual rules below:
+# -keep public class * { public *; }
+# -keepclassmembers class * { public *; }

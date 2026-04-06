@@ -1,0 +1,9 @@
+# Placeholder for Album Cover Images
+
+Place your album cover images here:
+- cover1.png (500x500 recommended)
+- cover2.png (500x500 recommended)
+- cover3.png (500x500 recommended)
+
+Supported formats: PNG, JPEG
+Square images work best for album covers.
