@@ -192,7 +192,6 @@ struct SearchPage {
             this.onClear();
           }
         })
-        .onClear(() => this.onClear())
 
       if (this.searchResults.length > 0) {
         Text(`找到 ${this.searchResults.length} 首歌曲`)
