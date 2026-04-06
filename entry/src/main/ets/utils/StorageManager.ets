@@ -37,7 +37,7 @@ export class StorageManager {
   async initialize(context: Context): Promise<void> {
     try {
       this.context = context;
-      this.preferences = await dataPreferences.Preferences.getPreferences(context, 'musicbox_data');
+      this.preferences = await dataPreferences.getPreferences(context, 'musicbox_data');
       console.info('StorageManager initialized successfully');
     } catch (error) {
       console.error('Failed to initialize StorageManager:', JSON.stringify(error));

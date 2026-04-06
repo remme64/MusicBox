@@ -48,7 +48,11 @@ struct LibraryPage {
    * Sort songs by current sort option
    */
   sortSongs(songs: Song[]): Song[] {
-    return [...songs].sort((a, b) => {
+    const sorted: Song[] = [];
+    for (let i = 0; i < songs.length; i++) {
+      sorted.push(songs[i]);
+    }
+    sorted.sort((a: Song, b: Song): number => {
       switch (this.sortBy) {
         case 'name':
           return a.title.localeCompare(b.title);
@@ -60,6 +64,7 @@ struct LibraryPage {
           return 0;
       }
     });
+    return sorted;
   }
 
   /**

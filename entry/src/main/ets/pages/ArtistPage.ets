@@ -37,13 +37,23 @@ struct ArtistPage {
       }
 
       // Create artist list
-      this.artists = Array.from(artistMap.entries()).map(([name, count], index) => ({
-        id: index + 1,
-        name: name,
-        avatar: DEFAULT_ARTISTS.find(a => a.name === name)?.avatar || '🎤',
-        songCount: count,
-        albumCount: 1
-      }));
+      const artistEntries = Array.from(artistMap.entries());
+      const artistList: Artist[] = [];
+      for (let i = 0; i < artistEntries.length; i++) {
+        const entry = artistEntries[i];
+        const name = entry[0];
+        const count = entry[1];
+        const defaultArtist = DEFAULT_ARTISTS.find(a => a.name === name);
+        const newArtist: Artist = {
+          id: i + 1,
+          name: name,
+          avatar: defaultArtist ? defaultArtist.avatar : '🎤',
+          songCount: count,
+          albumCount: 1
+        };
+        artistList.push(newArtist);
+      }
+      this.artists = artistList;
 
       this.isLoading = false;
     } catch (error) {

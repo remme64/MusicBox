@@ -54,12 +54,16 @@ struct SearchPage {
       const library = await storage.getLibrary();
       const query = value.toLowerCase();
 
-      this.searchResults = library.filter(song =>
-        song.title.toLowerCase().includes(query) ||
-        song.artist.toLowerCase().includes(query) ||
-        song.album.toLowerCase().includes(query)
-      );
-
+      const results: Song[] = [];
+      for (let i = 0; i < library.length; i++) {
+        const song = library[i];
+        if (song.title.toLowerCase().includes(query) ||
+          song.artist.toLowerCase().includes(query) ||
+          song.album.toLowerCase().includes(query)) {
+          results.push(song);
+        }
+      }
+      this.searchResults = results;
       this.hasSearched = true;
     } catch (error) {
       console.error('Failed to search:', JSON.stringify(error));
@@ -85,7 +89,8 @@ struct SearchPage {
 
       await storage.addToHistory(song);
 
-      audioManager.setPlaylist(this.searchResults, this.searchResults.findIndex(s => s.id === song.id));
+      const index = this.searchResults.findIndex(s => s.id === song.id);
+      audioManager.setPlaylist(this.searchResults, index >= 0 ? index : 0);
       await audioManager.loadSong(song);
       await audioManager.play();
 
@@ -168,7 +173,7 @@ struct SearchPage {
       })
         .placeholderColor('#a0a0b0')
         .placeholderFont({ size: 14 })
-        .textColor('#ffffff')
+        .fontColor('#ffffff')
         .fontSize(16)
         .backgroundColor('rgba(255, 255, 255, 0.1)')
         .borderRadius(24)
@@ -200,7 +205,7 @@ struct SearchPage {
       Text('搜索提示')
         .fontSize(14)
         .fontColor('#a0a0b0')
-        .alignSelf(HorizontalAlign.Start)
+        .alignItems(HorizontalAlign.Start)
         .margin({ left: 16, bottom: 12 })
 
       // Hot keywords
@@ -208,7 +213,7 @@ struct SearchPage {
         Text('热门搜索')
           .fontSize(12)
           .fontColor('#606080')
-          .alignSelf(HorizontalAlign.Start)
+          .alignItems(HorizontalAlign.Start)
           .margin({ left: 16, bottom: 8 })
 
         Row({ space: 8 }) {
@@ -234,7 +239,7 @@ struct SearchPage {
         Text('曲库歌曲')
           .fontSize(12)
           .fontColor('#606080')
-          .alignSelf(HorizontalAlign.Start)
+          .alignItems(HorizontalAlign.Start)
           .margin({ left: 16, top: 24, bottom: 8 })
 
         Scroll() {

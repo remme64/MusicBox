@@ -21,7 +21,8 @@
       {
         "name": "release"
       }
-    ]
+    ],
+    "signingConfigs": []
   },
   "modules": [
     {

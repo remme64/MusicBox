@@ -30,13 +30,19 @@ struct CategoryPage {
       const library = await storage.getLibrary();
 
       // Update song counts for each category
-      this.categories = DEFAULT_CATEGORIES.map(cat => {
+      const updatedCategories: Category[] = [];
+      for (let i = 0; i < DEFAULT_CATEGORIES.length; i++) {
+        const cat = DEFAULT_CATEGORIES[i];
         const songIds = await storage.getSongsByCategory(cat.id);
-        return {
-          ...cat,
+        const updatedCat: Category = {
+          id: cat.id,
+          name: cat.name,
+          icon: cat.icon,
           songCount: songIds.length
         };
-      });
+        updatedCategories.push(updatedCat);
+      }
+      this.categories = updatedCategories;
 
       this.isLoading = false;
     } catch (error) {
