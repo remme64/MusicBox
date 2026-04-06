@@ -13,6 +13,7 @@ struct SearchPage {
   @State private searchText: string = '';
   @State private searchResults: Song[] = [];
   @State private allSongs: Song[] = [];
+  @State private recentSongs: Song[] = [];
   @State private isLoading: boolean = true;
   @State private hasSearched: boolean = false;
 
@@ -30,6 +31,12 @@ struct SearchPage {
       this.isLoading = true;
       const storage = getStorageManager();
       this.allSongs = await storage.getLibrary();
+      // Get recent songs (first 5)
+      const recent: Song[] = [];
+      for (let i = 0; i < 5 && i < this.allSongs.length; i++) {
+        recent.push(this.allSongs[i]);
+      }
+      this.recentSongs = recent;
       this.isLoading = false;
     } catch (error) {
       console.error('Failed to load library:', JSON.stringify(error));
@@ -244,7 +251,7 @@ struct SearchPage {
 
         Scroll() {
           Column({ space: 8 }) {
-            ForEach(this.allSongs.slice(0, 5), (song: Song) => {
+            ForEach(this.recentSongs, (song: Song) => {
               Row() {
                 Text('🎵')
                   .fontSize(16)
