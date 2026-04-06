@@ -181,7 +181,6 @@ struct SearchPage {
         .placeholderColor('#a0a0b0')
         .placeholderFont({ size: 14 })
         .fontColor('#ffffff')
-        .fontSize(16)
         .backgroundColor('rgba(255, 255, 255, 0.1)')
         .borderRadius(24)
         .height(44)
@@ -212,7 +211,8 @@ struct SearchPage {
       Text('搜索提示')
         .fontSize(14)
         .fontColor('#a0a0b0')
-        .alignItems(HorizontalAlign.Start)
+        .textAlign(TextAlign.Start)
+        .width('100%')
         .margin({ left: 16, bottom: 12 })
 
       // Hot keywords
@@ -220,7 +220,8 @@ struct SearchPage {
         Text('热门搜索')
           .fontSize(12)
           .fontColor('#606080')
-          .alignItems(HorizontalAlign.Start)
+          .textAlign(TextAlign.Start)
+          .width('100%')
           .margin({ left: 16, bottom: 8 })
 
         Row({ space: 8 }) {
@@ -246,7 +247,8 @@ struct SearchPage {
         Text('曲库歌曲')
           .fontSize(12)
           .fontColor('#606080')
-          .alignItems(HorizontalAlign.Start)
+          .textAlign(TextAlign.Start)
+          .width('100%')
           .margin({ left: 16, top: 24, bottom: 8 })
 
         Scroll() {
