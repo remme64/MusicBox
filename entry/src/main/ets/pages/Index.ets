@@ -1,4 +1,4 @@
-﻿import router from '@ohos.router';
+import router from '@ohos.router';
 import promptAction from '@ohos.promptAction';
 import { Song, DEFAULT_SONGS } from '../model/Song';
 import { AudioManager, PlaybackState, getAudioManager } from '../utils/AudioManager';
@@ -619,4 +619,3 @@ struct Index {
       offsetY: -4
     })
   }
-}
