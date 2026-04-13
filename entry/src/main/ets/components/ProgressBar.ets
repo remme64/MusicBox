@@ -51,13 +51,13 @@ export struct ProgressBar {
         Column()
           .width(this.progressPercent + '%')
           .height(4)
-          .backgroundColor('#6366f1')
+          .backgroundColor('#FF8C69')
           .borderRadius(2)
 
         Column()
           .layoutWeight(1)
           .height(4)
-          .backgroundColor('#404060')
+          .backgroundColor('#5A3A3A')
           .borderRadius(2)
       }
       .width('100%')
@@ -78,7 +78,7 @@ export struct ProgressBar {
         // Current time
         Text(this.FORMATTER(this.currentTimeMs))
           .fontSize(12)
-          .fontColor('#a0a0b0')
+          .fontColor('#C8A8A0')
           .fontWeight(FontWeight.Medium)
 
         Blank()
@@ -86,7 +86,7 @@ export struct ProgressBar {
         // Total time
         Text(this.FORMATTER(this.totalTimeMs))
           .fontSize(12)
-          .fontColor('#a0a0b0')
+          .fontColor('#C8A8A0')
           .fontWeight(FontWeight.Medium)
       }
       .width('100%')
@@ -112,8 +112,8 @@ export struct MiniProgressBar {
       })
         .width('100%')
         .height(4)
-        .color('#6366f1')
-        .backgroundColor('#404060')
+        .color('#FF8C69')
+        .backgroundColor('#5A3A3A')
     }
   }
 }

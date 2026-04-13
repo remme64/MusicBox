@@ -75,10 +75,10 @@ export struct AlbumCover {
         .width(this.coverSize + 16)
         .height(this.coverSize + 16)
         .borderRadius((this.coverSize + 16) / 2)
-        .backgroundColor('#2a2a4a')
+        .backgroundColor('#E8C0B0')
         .shadow({
           radius: 20,
-          color: '#40000000',
+          color: '#30000000',
           offsetX: 0,
           offsetY: 8
         })
@@ -88,7 +88,7 @@ export struct AlbumCover {
         .width(this.coverSize)
         .height(this.coverSize)
         .borderRadius(this.coverSize / 2)
-        .backgroundColor('#1a1a2e')
+        .backgroundColor('#F5E6E0')
 
       // Album cover image
       if (this.coverImage) {
@@ -108,12 +108,12 @@ export struct AlbumCover {
         Column() {
           Text('♪')
             .fontSize(this.coverSize / 4)
-            .fontColor('#6366f1')
+            .fontColor('#FF8C69')
         }
         .width(this.coverSize - 20)
         .height(this.coverSize - 20)
         .borderRadius((this.coverSize - 20) / 2)
-        .backgroundColor('#252542')
+        .backgroundColor('#FFF0EB')
         .justifyContent(FlexAlign.Center)
         .alignItems(HorizontalAlign.Center)
       }
@@ -123,10 +123,10 @@ export struct AlbumCover {
         .width(this.coverSize / 6)
         .height(this.coverSize / 6)
         .borderRadius(this.coverSize / 12)
-        .backgroundColor('#1a1a2e')
+        .backgroundColor('#F5E6E0')
         .border({
           width: 2,
-          color: '#404060'
+          color: '#D8C0B0'
         })
     }
     .width(this.coverSize + 32)
@@ -160,12 +160,12 @@ export struct AlbumCoverSimple {
       Column() {
         Text('♪')
           .fontSize(this.coverSize / 2)
-          .fontColor('#6366f1')
+          .fontColor('#FF8C69')
       }
       .width(this.coverSize)
       .height(this.coverSize)
       .borderRadius(this.coverSize / 8)
-      .backgroundColor('#252542')
+      .backgroundColor('#3D2A2A')
       .justifyContent(FlexAlign.Center)
       .alignItems(HorizontalAlign.Center)
     }

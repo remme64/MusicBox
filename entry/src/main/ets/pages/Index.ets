@@ -1,4 +1,4 @@
-import router from '@ohos.router';
+﻿import router from '@ohos.router';
 import promptAction from '@ohos.promptAction';
 import { Song, DEFAULT_SONGS } from '../model/Song';
 import { AudioManager, PlaybackState, getAudioManager } from '../utils/AudioManager';
@@ -12,8 +12,8 @@ import { ProgressBar } from '../components/ProgressBar';
 import { VolumeControl } from '../components/VolumeControl';
 
 /**
- * Index - Main Music Player Page
- * Displays album cover, song info, lyrics preview, and playback controls
+ * Index - Main Music Player Page with Tab Navigation
+ * White theme with two bottom tabs: 歌曲 and 个人中心
  */
 @Entry
 @Component
@@ -22,6 +22,9 @@ struct Index {
   private audioManager: AudioManager = getAudioManager();
   // AVSession util instance
   private avSessionUtil = getAVSessionUtil();
+
+  // Tab index: 0 = player (歌曲), 1 = personal center
+  @State currentTabIndex: number = 0;
 
   // State variables
   @State currentSong: Song | null = null;
@@ -71,8 +74,8 @@ struct Index {
 [02:30.00]Let the rhythm carry you
 [02:35.00]Dream waves, dream waves
 [02:40.00]The music sees you through
-[02:45.00]Let the melody set you free
-[02:50.00]Dream waves...`;
+[02:45:00]Let the melody set you free
+[02:50:00]Dream waves...`;
 
   aboutToAppear(): void {
     // Set up event handlers first
@@ -107,7 +110,7 @@ struct Index {
       this.isLoading = true;
 
       // AudioManager should already be initialized by EntryAbility
-      // Set playlist
+      // Set playlist with 10 songs
       this.audioManager.setPlaylist(DEFAULT_SONGS, 0);
 
       // Load first song
@@ -252,24 +255,6 @@ struct Index {
   }
 
   /**
-   * Navigate to home/menu
-   */
-  navigateToHome(): void {
-    router.pushUrl({
-      url: 'pages/HomePage'
-    });
-  }
-
-  /**
-   * Navigate to playlist
-   */
-  navigateToPlaylist(): void {
-    router.pushUrl({
-      url: 'pages/PlayList'
-    });
-  }
-
-  /**
    * Toggle favorite status
    */
   async toggleFavorite(): Promise<void> {
@@ -304,48 +289,222 @@ struct Index {
   }
 
   build() {
-    Stack({ alignContent: Alignment.Bottom }) {
-      // Background gradient
-      Column()
-        .width('100%')
-        .height('100%')
-        .linearGradient({
-          direction: GradientDirection.Top,
-          colors: [['#1a1a2e', 0], ['#16213e', 1]]
-        })
+    Column() {
+      // Tab content based on selected tab
+      if (this.currentTabIndex === 0) {
+        // 歌曲 tab - Player view
+        this.buildPlayerView()
+      } else {
+        // 个人中心 tab
+        this.buildPersonalCenterView()
+      }
 
-      // Main content
+      // Bottom TabBar
+      this.buildTabBar()
+    }
+    .width('100%')
+    .height('100%')
+    .backgroundColor('#FFF8F5')
+  }
+
+  /**
+   * Build player view (歌曲 tab)
+   */
+  @Builder
+  buildPlayerView() {
+    Column() {
+      // Top bar with song info
+      this.buildTopBar()
+
+      // Album cover with animation
       Column() {
-        // Top bar with song info
-        this.buildTopBar()
+        AlbumCover({
+          coverImage: this.currentSong?.coverImage || '',
+          isPlaying: this.isPlaying,
+          coverSize: 280
+        })
+      }
+      .layoutWeight(1)
+      .justifyContent(FlexAlign.Center)
 
-        // Album cover with animation
-        Column() {
-          AlbumCover({
-            coverImage: this.currentSong?.coverImage || '',
-            isPlaying: this.isPlaying,
-            coverSize: 280
-          })
+      // Lyrics preview
+      Column() {
+        LyricViewCompact({
+          lyrics: this.isLyricsEnabled ? this.lyrics : null,
+          currentTimeMs: this.currentTimeMs
+        })
+      }
+      .height(100)
+      .padding({ top: 16, bottom: 16 })
+
+      // Control panel
+      this.buildControlPanel()
+    }
+    .width('100%')
+    .layoutWeight(1)
+  }
+
+  /**
+   * Build personal center view (个人中心 tab)
+   */
+  @Builder
+  buildPersonalCenterView() {
+    Column() {
+      // Header
+      Text('个人中心')
+        .fontSize(28)
+        .fontWeight(FontWeight.Bold)
+        .fontColor('#3D2A2A')
+        .margin({ bottom: 16 })
+
+        // User name
+        Text('音乐爱好者')
+          .fontSize(22)
+          .fontWeight(FontWeight.Bold)
+          .fontColor('#3D2A2A')
+          .margin({ bottom: 8 })
+
+        // User stats
+        Row() {
+          Column() {
+            Text('0')
+              .fontSize(20)
+              .fontWeight(FontWeight.Bold)
+              .fontColor('#3D2A2A')
+            Text('收藏')
+              .fontSize(13)
+              .fontColor('#8B6B6B')
+              .margin({ top: 4 })
+          }
+          .layoutWeight(1)
+
+          Column() {
+            Text('0')
+              .fontSize(20)
+              .fontWeight(FontWeight.Bold)
+              .fontColor('#3D2A2A')
+            Text('播放')
+              .fontSize(13)
+              .fontColor('#8B6B6B')
+              .margin({ top: 4 })
+          }
+          .layoutWeight(1)
+
+          Column() {
+            Text('0小时')
+              .fontSize(20)
+              .fontWeight(FontWeight.Bold)
+              .fontColor('#3D2A2A')
+            Text('时长')
+              .fontSize(13)
+              .fontColor('#8B6B6B')
+              .margin({ top: 4 })
+          }
+          .layoutWeight(1)
         }
-        .layoutWeight(1)
-        .justifyContent(FlexAlign.Center)
-
-        // Lyrics preview
-        Column() {
-          LyricViewCompact({
-            lyrics: this.isLyricsEnabled ? this.lyrics : null,
-            currentTimeMs: this.currentTimeMs
-          })
-        }
-        .height(100)
-        .padding({ top: 16, bottom: 16 })
-
-        // Control panel
-        this.buildControlPanel()
+        .margin({ top: 16 })
       }
       .width('100%')
-      .height('100%')
+      .padding({ top: 32, bottom: 32 })
+      .backgroundColor('#FFF0EB')
+      .borderRadius(16)
+      .margin({ left: 16, right: 16, bottom: 24 })
+
+      // Settings list
+      Column() {
+        this.buildSettingsItem('❤️', '我的收藏', '查看收藏的歌曲', 'pages/FavoritesPage')
+        this.buildSettingsItem('📋', '播放历史', '最近播放的歌曲', 'pages/HistoryPage')
+        this.buildSettingsItem('⚙️', '设置', '应用偏好设置', 'pages/SettingsPage')
+        this.buildSettingsItem('ℹ️', '关于', 'MusicBox v1.0.0', 'pages/AboutPage')
+      }
+      .padding({ left: 16, right: 16 })
+
+      Blank()
     }
+    .width('100%')
+    .layoutWeight(1)
+    .backgroundColor('#FFF8F5')
+  }
+
+  @Builder
+  buildSettingsItem(icon: string, title: string, subtitle: string, routeUrl: string) {
+    Row() {
+      Text(icon)
+        .fontSize(24)
+        .width(44)
+        .textAlign(TextAlign.Center)
+
+      Column() {
+        Text(title)
+          .fontSize(16)
+          .fontWeight(FontWeight.Medium)
+          .fontColor('#3D2A2A')
+
+        Text(subtitle)
+          .fontSize(13)
+          .fontColor('#8B6B6B')
+          .margin({ top: 2 })
+      }
+      .layoutWeight(1)
+      .alignItems(HorizontalAlign.Start)
+
+      Text('›')
+        .fontSize(22)
+        .fontColor('#D8C0B8')
+    }
+    .width('100%')
+    .height(60)
+    .padding({ left: 8, right: 8 })
+    .backgroundColor('#FFF0EB')
+    .borderRadius(12)
+    .margin({ bottom: 8 })
+    .onClick(() => {
+      router.pushUrl({ url: routeUrl });
+    })
+  }
+
+  /**
+   * Build bottom tab bar
+   */
+  @Builder
+  buildTabBar() {
+    Row() {
+      // 歌曲 tab
+      Column() {
+        Text('🎵')
+          .fontSize(24)
+        Text('歌曲')
+          .fontSize(12)
+          .fontColor(this.currentTabIndex === 0 ? '#FF8C69' : '#C8A8A0')
+          .margin({ top: 4 })
+      }
+      .layoutWeight(1)
+      .height(60)
+      .justifyContent(FlexAlign.Center)
+      .onClick(() => {
+        this.currentTabIndex = 0;
+      })
+
+      // 个人中心 tab
+      Column() {
+        Text('👤')
+          .fontSize(24)
+        Text('个人中心')
+          .fontSize(12)
+          .fontColor(this.currentTabIndex === 1 ? '#FF8C69' : '#C8A8A0')
+          .margin({ top: 4 })
+      }
+      .layoutWeight(1)
+      .height(60)
+      .justifyContent(FlexAlign.Center)
+      .onClick(() => {
+        this.currentTabIndex = 1;
+      })
+    }
+    .width('100%')
+    .height(60)
+    .backgroundColor('#FFF0EB')
+    .borderRadius({ topLeft: 20, topRight: 20 })
   }
 
   /**
@@ -354,31 +513,18 @@ struct Index {
   @Builder
   buildTopBar(): void {
     Row() {
-      // Home button
-      Button() {
-        Text('🏠')
-          .fontSize(20)
-      }
-      .width(40)
-      .height(40)
-      .type(ButtonType.Circle)
-      .backgroundColor('transparent')
-      .onClick(() => {
-        this.navigateToHome();
-      })
-
       // Song info
       Column() {
         Text(this.currentSong?.title || 'Unknown Title')
           .fontSize(18)
           .fontWeight(FontWeight.Bold)
-          .fontColor('#ffffff')
+          .fontColor('#3D2A2A')
           .maxLines(1)
           .textOverflow({ overflow: TextOverflow.Ellipsis })
 
         Text(this.currentSong?.artist || 'Unknown Artist')
           .fontSize(14)
-          .fontColor('#a0a0b0')
+          .fontColor('#8B6B6B')
           .maxLines(1)
           .textOverflow({ overflow: TextOverflow.Ellipsis })
       }
@@ -398,9 +544,9 @@ struct Index {
         this.toggleFavorite();
       })
 
-      // Menu button
+      // Lyrics button
       Button() {
-        Text('☰')
+        Text('📝')
           .fontSize(20)
       }
       .width(40)
@@ -408,7 +554,7 @@ struct Index {
       .type(ButtonType.Circle)
       .backgroundColor('transparent')
       .onClick(() => {
-        this.navigateToPlaylist();
+        this.navigateToLyrics();
       })
     }
     .width('100%')
@@ -461,10 +607,16 @@ struct Index {
           this.onVolumeChange(vol);
         }
       })
-      .padding({ bottom: 32 })
+      .padding({ bottom: 16 })
     }
     .width('100%')
-    .backgroundColor('rgba(26, 26, 46, 0.95)')
-    .borderRadius({ topLeft: 32, topRight: 32 })
+    .backgroundColor('#FFF8F5')
+    .borderRadius({ topLeft: 24, topRight: 24 })
+    .shadow({
+      radius: 20,
+      color: '#20000000',
+      offsetX: 0,
+      offsetY: -4
+    })
   }
 }

@@ -220,6 +220,20 @@ export class StorageManager {
     return library.some(s => s.id === songId);
   }
 
+  /**
+   * Clear entire library
+   */
+  async clearLibrary(): Promise<boolean> {
+    try {
+      await this.preferences?.put(StorageManager.KEY_LIBRARY, JSON.stringify([]));
+      await this.preferences?.flush();
+      return true;
+    } catch (error) {
+      console.error('Failed to clear library:', JSON.stringify(error));
+      return false;
+    }
+  }
+
   // ==================== SONG-CATEGORY MAPPING ====================
 
   /**

@@ -1,4 +1,4 @@
-import router from '@ohos.router';
+﻿import router from '@ohos.router';
 import { Song } from '../model/Song';
 import { getStorageManager } from '../utils/StorageManager';
 import { getAudioManager } from '../utils/AudioManager';
@@ -114,7 +114,7 @@ struct SearchPage {
         .height('100%')
         .linearGradient({
           direction: GradientDirection.Top,
-          colors: [['#1a1a2e', 0], ['#16213e', 1]]
+          colors: [['#2D1B35', 0], ['#4A2C4A', 1]]
         })
 
       Column() {
@@ -159,7 +159,7 @@ struct SearchPage {
       Text('🔍 搜索')
         .fontSize(20)
         .fontWeight(FontWeight.Bold)
-        .fontColor('#ffffff')
+        .fontColor('#FFF5F0')
 
       Blank()
 
@@ -178,10 +178,10 @@ struct SearchPage {
         value: this.searchText,
         controller: this.searchController
       })
-        .placeholderColor('#a0a0b0')
+        .placeholderColor('#C8A8B0')
         .placeholderFont({ size: 14 })
-        .fontColor('#ffffff')
-        .backgroundColor('rgba(255, 255, 255, 0.1)')
+        .fontColor('#FFF5F0')
+        .backgroundColor('rgba(255, 255, 255, 0.12)')
         .borderRadius(24)
         .height(44)
         .padding({ left: 16, right: 16 })
@@ -196,7 +196,7 @@ struct SearchPage {
       if (this.searchResults.length > 0) {
         Text(`找到 ${this.searchResults.length} 首歌曲`)
           .fontSize(12)
-          .fontColor('#a0a0b0')
+          .fontColor('#C8A8B0')
           .margin({ top: 8 })
       }
     }
@@ -209,7 +209,7 @@ struct SearchPage {
     Column() {
       Text('搜索提示')
         .fontSize(14)
-        .fontColor('#a0a0b0')
+        .fontColor('#C8A8B0')
         .textAlign(TextAlign.Start)
         .width('100%')
         .margin({ left: 16, bottom: 12 })
@@ -218,7 +218,7 @@ struct SearchPage {
       Column() {
         Text('热门搜索')
           .fontSize(12)
-          .fontColor('#606080')
+          .fontColor('#A88888')
           .textAlign(TextAlign.Start)
           .width('100%')
           .margin({ left: 16, bottom: 8 })
@@ -227,8 +227,8 @@ struct SearchPage {
           ForEach(['Dream', 'Electronic', 'Midnight', 'Ocean'], (keyword: string) => {
             Text(keyword)
               .fontSize(12)
-              .fontColor('#9B59B6')
-              .backgroundColor('rgba(155, 89, 182, 0.2)')
+              .fontColor('#FF8C69')
+              .backgroundColor('rgba(255, 140, 105, 0.15)')
               .borderRadius(12)
               .padding({ left: 12, right: 12, top: 6, bottom: 6 })
               .onClick(() => {
@@ -245,7 +245,7 @@ struct SearchPage {
       Column() {
         Text('曲库歌曲')
           .fontSize(12)
-          .fontColor('#606080')
+          .fontColor('#A88888')
           .textAlign(TextAlign.Start)
           .width('100%')
           .margin({ left: 16, top: 24, bottom: 8 })
@@ -260,17 +260,17 @@ struct SearchPage {
 
                 Text(song.title)
                   .fontSize(14)
-                  .fontColor('#ffffff')
+                  .fontColor('#FFF5F0')
                   .layoutWeight(1)
 
                 Text(song.artist)
                   .fontSize(11)
-                  .fontColor('#a0a0b0')
+                  .fontColor('#C8A8B0')
               }
               .width('100%')
               .padding({ left: 16, right: 16, top: 8, bottom: 8 })
-              .backgroundColor('rgba(255, 255, 255, 0.03)')
-              .borderRadius(8)
+              .backgroundColor('rgba(255, 255, 255, 0.06)')
+              .borderRadius(10)
               .onClick(() => this.playSong(song))
             })
           }
@@ -292,12 +292,12 @@ struct SearchPage {
       Text('未找到相关歌曲')
         .fontSize(18)
         .fontWeight(FontWeight.Bold)
-        .fontColor('#ffffff')
+        .fontColor('#FFF5F0')
         .margin({ top: 16 })
 
       Text(`没有找到与"${this.searchText}"相关的歌曲`)
         .fontSize(14)
-        .fontColor('#a0a0b0')
+        .fontColor('#C8A8B0')
         .margin({ top: 8 })
     }
     .width('100%')
@@ -334,8 +334,8 @@ struct SearchPage {
       }
       .width(44)
       .height(44)
-      .backgroundColor('rgba(155, 89, 182, 0.2)')
-      .borderRadius(8)
+      .backgroundColor('rgba(255, 140, 105, 0.2)')
+      .borderRadius(10)
       .alignItems(HorizontalAlign.Center)
       .justifyContent(FlexAlign.Center)
 
@@ -343,13 +343,13 @@ struct SearchPage {
         Text(song.title)
           .fontSize(14)
           .fontWeight(FontWeight.Medium)
-          .fontColor('#ffffff')
+          .fontColor('#FFF5F0')
           .maxLines(1)
           .textOverflow({ overflow: TextOverflow.Ellipsis })
 
         Text(`${song.artist} · ${song.album}`)
           .fontSize(11)
-          .fontColor('#a0a0b0')
+          .fontColor('#C8A8B0')
           .margin({ top: 2 })
       }
       .alignItems(HorizontalAlign.Start)
@@ -359,17 +359,17 @@ struct SearchPage {
       Button() {
         Text('▶')
           .fontSize(12)
-          .fontColor('#ffffff')
+          .fontColor('#FFF5F0')
       }
       .width(32)
       .height(32)
       .type(ButtonType.Circle)
-      .backgroundColor('#9B59B6')
+      .backgroundColor('#FF7A59')
       .onClick(() => this.playSong(song))
     }
     .width('100%')
-    .padding({ top: 8, bottom: 8, left: 10, right: 10 })
-    .backgroundColor('rgba(255, 255, 255, 0.05)')
-    .borderRadius(10)
+    .padding({ top: 10, bottom: 10, left: 10, right: 10 })
+    .backgroundColor('rgba(255, 255, 255, 0.08)')
+    .borderRadius(12)
   }
 }

@@ -1,4 +1,4 @@
-import router from '@ohos.router';
+﻿import router from '@ohos.router';
 import { Artist, DEFAULT_ARTISTS } from '../model/Artist';
 import { Song } from '../model/Song';
 import { getStorageManager } from '../utils/StorageManager';
@@ -114,7 +114,7 @@ struct ArtistPage {
         .height('100%')
         .linearGradient({
           direction: GradientDirection.Top,
-          colors: [['#1a1a2e', 0], ['#16213e', 1]]
+          colors: [['#2D1B35', 0], ['#4A2C4A', 1]]
         })
 
       Column() {
@@ -211,7 +211,7 @@ struct ArtistPage {
 
         Text(`${artist.songCount} 首歌曲`)
           .fontSize(12)
-          .fontColor('#a0a0b0')
+          .fontColor('#C8A8B0')
           .margin({ top: 4 })
       }
       .alignItems(HorizontalAlign.Start)
@@ -221,7 +221,7 @@ struct ArtistPage {
       // Arrow
       Text('›')
         .fontSize(24)
-        .fontColor('#606080')
+        .fontColor('#C8A8B8')
     }
     .width('100%')
     .padding({ top: 12, bottom: 12, left: 16, right: 16 })

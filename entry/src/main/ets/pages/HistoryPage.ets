@@ -1,4 +1,4 @@
-import router from '@ohos.router';
+﻿import router from '@ohos.router';
 import { HistoryRecord } from '../model/HistoryRecord';
 import { getStorageManager } from '../utils/StorageManager';
 import { getAudioManager } from '../utils/AudioManager';
@@ -93,7 +93,7 @@ struct HistoryPage {
         .height('100%')
         .linearGradient({
           direction: GradientDirection.Top,
-          colors: [['#1a1a2e', 0], ['#16213e', 1]]
+          colors: [['#2D1B35', 0], ['#4A2C4A', 1]]
         })
 
       Column() {
@@ -135,7 +135,7 @@ struct HistoryPage {
       Text('🕐 历史记录')
         .fontSize(20)
         .fontWeight(FontWeight.Bold)
-        .fontColor('#ffffff')
+        .fontColor('#FFF5F0')
 
       Blank()
 
@@ -166,12 +166,12 @@ struct HistoryPage {
       Text('暂无播放历史')
         .fontSize(20)
         .fontWeight(FontWeight.Bold)
-        .fontColor('#ffffff')
+        .fontColor('#FFF5F0')
         .margin({ top: 16 })
 
       Text('开始播放音乐以查看历史记录')
         .fontSize(14)
-        .fontColor('#a0a0b0')
+        .fontColor('#C8A8B0')
         .margin({ top: 8 })
     }
     .width('100%')
@@ -217,13 +217,13 @@ struct HistoryPage {
         Text(record.song.title)
           .fontSize(14)
           .fontWeight(FontWeight.Medium)
-          .fontColor('#ffffff')
+          .fontColor('#FFF5F0')
           .maxLines(1)
           .textOverflow({ overflow: TextOverflow.Ellipsis })
 
         Text(`${record.song.artist} · ${this.formatTime(record.playedAt)}`)
           .fontSize(11)
-          .fontColor('#a0a0b0')
+          .fontColor('#C8A8B0')
           .margin({ top: 2 })
       }
       .alignItems(HorizontalAlign.Start)
@@ -233,7 +233,7 @@ struct HistoryPage {
       Button() {
         Text('▶')
           .fontSize(12)
-          .fontColor('#ffffff')
+          .fontColor('#FFF5F0')
       }
       .width(32)
       .height(32)
@@ -243,7 +243,7 @@ struct HistoryPage {
     }
     .width('100%')
     .padding({ top: 8, bottom: 8, left: 10, right: 10 })
-    .backgroundColor('rgba(255, 255, 255, 0.05)')
-    .borderRadius(10)
+    .backgroundColor('rgba(255, 255, 255, 0.08)')
+    .borderRadius(12)
   }
 }

@@ -7,30 +7,20 @@ import { LyricLine, ParsedLyrics, getCurrentLyricIndex } from '../utils/LyricPar
  */
 @Component
 export struct LyricView {
-  // Parsed lyrics data
   @Prop lyrics: ParsedLyrics | null = null;
-  // Current playback position in milliseconds
   @Prop currentTimeMs: number = 0;
-  // Number of lines to show above and below current
   @Prop visibleLinesCount: number = 5;
-  // Whether lyrics are enabled
   @Prop isEnabled: boolean = true;
 
-  // Current highlighted line index
   @State currentLineIndex: number = -1;
 
-  // Font size for active line
   private readonly ACTIVE_FONT_SIZE: number = 24;
-  // Font size for inactive lines
   private readonly INACTIVE_FONT_SIZE: number = 16;
 
   aboutToAppear(): void {
     this.updateCurrentLine();
   }
 
-  /**
-   * Update current line when time changes
-   */
   updateCurrentLine(): void {
     if (!this.lyrics) {
       this.currentLineIndex = -1;
@@ -41,18 +31,16 @@ export struct LyricView {
 
   build() {
     if (!this.isEnabled || !this.lyrics || this.lyrics.lines.length === 0) {
-      // No lyrics placeholder
       Column() {
-        Text('No lyrics available')
+        Text('暂无歌词')
           .fontSize(16)
-          .fontColor('#606070')
+          .fontColor('#8B6B6B')
           .textAlign(TextAlign.Center)
       }
       .width('100%')
       .height('100%')
       .justifyContent(FlexAlign.Center)
     } else {
-      // Lyrics display with scroll
       List() {
         ForEach(
           this.lyrics.lines,
@@ -85,7 +73,6 @@ export struct LyricView {
     }
   }
 
-  // Helper methods for styling
   private getFontSize(index: number): number {
     return index === this.currentLineIndex ? this.ACTIVE_FONT_SIZE : this.INACTIVE_FONT_SIZE;
   }
@@ -96,12 +83,12 @@ export struct LyricView {
 
   private getFontColor(index: number): string {
     if (index === this.currentLineIndex) {
-      return '#ffffff';
+      return '#FFF5F0';
     }
     if (Math.abs(index - this.currentLineIndex) <= 2) {
-      return '#808090';
+      return '#C8A8A0';
     }
-    return '#505060';
+    return '#8B6B6B';
   }
 
   private getPaddingTop(index: number): number {
@@ -138,42 +125,42 @@ export struct LyricViewCompact {
 
   build() {
     if (!this.lyrics || this.lyrics.lines.length === 0) {
-      Text('♪♪♪')
-        .fontSize(20)
-        .fontColor('#606070')
-        .textAlign(TextAlign.Center)
+      Column() {
+        Text('♪♪...')
+          .fontSize(20)
+          .fontColor('#8B6B6B')
+          .textAlign(TextAlign.Center)
+      }
+      .width('100%')
     } else {
       Column({ space: 16 }) {
-        // Previous line
         if (this.currentLineIndex > 0) {
           Text(this.lyrics.lines[this.currentLineIndex - 1]?.text || '')
             .fontSize(14)
-            .fontColor('#606070')
+            .fontColor('#8B6B6B')
             .textAlign(TextAlign.Center)
             .opacity(0.6)
         }
 
-        // Current line
         Text(
           this.currentLineIndex >= 0
             ? this.lyrics.lines[this.currentLineIndex].text
-            : 'Waiting...'
+            : '等待播放...'
         )
           .fontSize(22)
           .fontWeight(FontWeight.Medium)
-          .fontColor('#ffffff')
+          .fontColor('#3D2A2A')
           .textAlign(TextAlign.Center)
           .maxLines(2)
           .textOverflow({ overflow: TextOverflow.Ellipsis })
 
-        // Next line
         if (
           this.currentLineIndex >= 0 &&
           this.currentLineIndex < this.lyrics.lines.length - 1
         ) {
           Text(this.lyrics.lines[this.currentLineIndex + 1]?.text || '')
             .fontSize(14)
-            .fontColor('#606070')
+            .fontColor('#8B6B6B')
             .textAlign(TextAlign.Center)
             .opacity(0.6)
         }

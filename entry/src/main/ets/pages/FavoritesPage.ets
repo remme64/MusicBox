@@ -1,4 +1,4 @@
-import router from '@ohos.router';
+﻿import router from '@ohos.router';
 import { Song } from '../model/Song';
 import { getStorageManager } from '../utils/StorageManager';
 import { getAudioManager } from '../utils/AudioManager';
@@ -97,7 +97,7 @@ struct FavoritesPage {
         .height('100%')
         .linearGradient({
           direction: GradientDirection.Top,
-          colors: [['#1a1a2e', 0], ['#16213e', 1]]
+          colors: [['#2D1B35', 0], ['#4A2C4A', 1]]
         })
 
       Column() {
@@ -128,7 +128,7 @@ struct FavoritesPage {
       Button() {
         Text('‹ 返回')
           .fontSize(18)
-          .fontColor('#ffffff')
+          .fontColor('#FFF5F0')
       }
       .type(ButtonType.Normal)
       .backgroundColor('transparent')

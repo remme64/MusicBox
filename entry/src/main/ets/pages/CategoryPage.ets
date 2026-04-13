@@ -1,4 +1,4 @@
-import router from '@ohos.router';
+﻿import router from '@ohos.router';
 import { Category, DEFAULT_CATEGORIES } from '../model/Category';
 import { Song } from '../model/Song';
 import { getStorageManager } from '../utils/StorageManager';
@@ -104,7 +104,7 @@ struct CategoryPage {
         .height('100%')
         .linearGradient({
           direction: GradientDirection.Top,
-          colors: [['#1a1a2e', 0], ['#16213e', 1]]
+          colors: [['#2D1B35', 0], ['#4A2C4A', 1]]
         })
 
       Column() {
@@ -214,7 +214,7 @@ struct CategoryPage {
 
       Text(`${category.songCount} 首歌曲`)
         .fontSize(12)
-        .fontColor('#a0a0b0')
+        .fontColor('#C8A8B0')
         .margin({ top: 4 })
     }
     .width('100%')
@@ -240,12 +240,12 @@ struct CategoryPage {
 
           Text('该分类暂无歌曲')
             .fontSize(16)
-            .fontColor('#a0a0b0')
+            .fontColor('#C8A8B0')
             .margin({ top: 16 })
 
           Text('从曲库中添加歌曲并设置分类')
             .fontSize(12)
-            .fontColor('#606080')
+            .fontColor('#A88888')
             .margin({ top: 8 })
         }
         .width('100%')
@@ -314,7 +314,7 @@ struct CategoryPage {
       .width(32)
       .height(32)
       .type(ButtonType.Circle)
-      .backgroundColor('#67B26F')
+      .backgroundColor('#FF7A59')
       .onClick(() => this.playSong(song))
     }
     .width('100%')

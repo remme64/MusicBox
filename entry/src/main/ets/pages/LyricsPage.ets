@@ -1,4 +1,4 @@
-import router from '@ohos.router';
+﻿import router from '@ohos.router';
 import { Song } from '../model/Song';
 import { AudioManager, PlaybackState, getAudioManager } from '../utils/AudioManager';
 import { ParsedLyrics, parseLrc } from '../utils/LyricParser';
@@ -109,7 +109,7 @@ struct LyricsPage {
         .height('100%')
         .linearGradient({
           direction: GradientDirection.Top,
-          colors: [['#1a1a2e', 0], ['#0f0f1a', 1]]
+          colors: [['#2D1B35', 0], ['#4A2C4A', 1]]
         })
 
       // Top bar with close button and song info
@@ -143,12 +143,12 @@ struct LyricsPage {
         Button() {
           Text('✕')
             .fontSize(20)
-            .fontColor('#ffffff')
+            .fontColor('#FFF5F0')
         }
         .width(48)
         .height(48)
         .type(ButtonType.Circle)
-        .backgroundColor('transparent')
+        .backgroundColor('rgba(255, 200, 180, 0.15)')
         .onClick(() => {
           this.goBack();
         })
@@ -172,7 +172,7 @@ struct LyricsPage {
         Button() {
           Text(this.isLyricsEnabled ? 'Hide' : 'Show')
             .fontSize(14)
-            .fontColor('#6366f1')
+            .fontColor('#FF8C69')
         }
         .width(60)
         .height(36)
@@ -214,12 +214,12 @@ struct LyricsPage {
         Column()
           .width(this.totalTimeMs > 0 ? (this.currentTimeMs / this.totalTimeMs) * 100 : 0)
           .height(3)
-          .backgroundColor('#6366f1')
+          .backgroundColor('#FF8C69')
 
         Column()
           .layoutWeight(1)
           .height(3)
-          .backgroundColor('#404060')
+          .backgroundColor('#5A3A3A')
       }
       .width('80%')
       .borderRadius(2)

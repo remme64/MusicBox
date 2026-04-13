@@ -24,12 +24,12 @@ export struct PlayControls {
       Button() {
         Text('⏮')
           .fontSize(24)
-          .fontColor('#ffffff')
+          .fontColor('#8B5A5A')
       }
       .width(this.SECONDARY_BUTTON_SIZE)
       .height(this.SECONDARY_BUTTON_SIZE)
       .type(ButtonType.Circle)
-      .backgroundColor('transparent')
+      .backgroundColor('rgba(255, 200, 180, 0.15)')
       .onClick(() => {
         this.onPrevious();
       })
@@ -40,20 +40,20 @@ export struct PlayControls {
           LoadingProgress()
             .width(32)
             .height(32)
-            .color('#ffffff')
+            .color('#FF8C69')
         } else {
           Text(this.isPlaying ? '⏸' : '▶')
             .fontSize(28)
-            .fontColor('#ffffff')
+            .fontColor('#FFF5F0')
         }
       }
       .width(this.MAIN_BUTTON_SIZE)
       .height(this.MAIN_BUTTON_SIZE)
       .type(ButtonType.Circle)
-      .backgroundColor('#6366f1')
+      .backgroundColor('#FF7A59')
       .shadow({
         radius: 16,
-        color: '#406366f1',
+        color: '#60FF7A59',
         offsetX: 0,
         offsetY: 4
       })
@@ -67,12 +67,12 @@ export struct PlayControls {
       Button() {
         Text('⏭')
           .fontSize(24)
-          .fontColor('#ffffff')
+          .fontColor('#8B5A5A')
       }
       .width(this.SECONDARY_BUTTON_SIZE)
       .height(this.SECONDARY_BUTTON_SIZE)
       .type(ButtonType.Circle)
-      .backgroundColor('transparent')
+      .backgroundColor('rgba(255, 200, 180, 0.15)')
       .onClick(() => {
         this.onNext();
       })
@@ -97,12 +97,12 @@ export struct MiniPlayControls {
     Button() {
       Text(this.isPlaying ? '⏸' : '▶')
         .fontSize(16)
-        .fontColor('#6366f1')
+        .fontColor('#FF7A59')
     }
     .width(this.BUTTON_SIZE)
     .height(this.BUTTON_SIZE)
     .type(ButtonType.Circle)
-    .backgroundColor('transparent')
+    .backgroundColor('rgba(255, 122, 89, 0.12)')
     .onClick(() => {
       this.onPlayPause();
     })

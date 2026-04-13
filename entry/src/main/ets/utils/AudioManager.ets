@@ -40,6 +40,7 @@ export class AudioManager {
   private currentVolume: number = 1.0;
   private appContext: Context | null = null;
 
+
   private constructor() {}
 
   /**
@@ -135,33 +136,49 @@ export class AudioManager {
       this.currentSong = song;
       this.updatePlaybackState(PlaybackState.IDLE);
 
-      // Set audio source via fdSrc for rawfile
+      // Set audio source FIRST via fdSrc for rawfile
+      // This is the ONLY way to load rawfile resources in OpenHarmony
       const rawFilePath = song.audioFile.replace('rawfile://', '');
-      const fd = await this.appContext?.resourceManager.getRawFd(rawFilePath);
-      if (fd) {
+      const fdData = await this.appContext?.resourceManager.getRawFd(rawFilePath);
+      if (fdData) {
         const avFileDescriptor: media.AVFileDescriptor = {
-          fd: fd.fd,
-          offset: fd.offset,
-          length: fd.length
+          fd: fdData.fd,
+          offset: fdData.offset,
+          length: fdData.length
         };
         this.avPlayer.fdSrc = avFileDescriptor;
+        console.info(`Set fdSrc for: ${song.title}`);
       } else {
-        // Fallback: use URL directly for testing
-        this.avPlayer.url = song.audioFile;
+        this.emitError(`Cannot open audio file: ${rawFilePath}`);
+        return;
       }
 
-      // Wait a moment for preparation
-      await new Promise<void>((resolve: (value: void) => void): void => {
-        setTimeout(resolve, 500);
-      });
+      // Now call prepare - player should be in 'idle' state after setting fdSrc
+      // If it auto-transitions to 'initialized', we may need to call prepare again
+      try {
+        await this.avPlayer.prepare();
+        console.info(`AVPlayer prepared for: ${song.title}`);
+      } catch (prepError) {
+        console.error(`prepare() failed: ${JSON.stringify(prepError)}, trying stop then prepare`);
+        // If prepare fails because we're not in stopped/idle, try stopping first
+        try {
+          await this.avPlayer.stop();
+        } catch (e) {
+          // Ignore
+        }
+        await this.avPlayer.prepare();
+        console.info(`AVPlayer prepared after stop-retry for: ${song.title}`);
+      }
 
       console.info(`Loaded song: ${song.title}`);
       this.emitSongChange(song);
     } catch (error) {
       console.error('Failed to load song:', JSON.stringify(error));
-      this.emitError('Failed to load song');
+      this.emitError('Failed to load song: ' + JSON.stringify(error));
     }
   }
+
+
 
   /**
    * Start or resume playback
@@ -220,7 +237,7 @@ export class AudioManager {
     }
 
     try {
-      await this.avPlayer.seek(positionMs); // Use seek instead of seekTime
+      await this.avPlayer.seek(positionMs);
       console.info(`Seeked to position: ${positionMs}`);
     } catch (error) {
       console.error('Failed to seek:', JSON.stringify(error));
@@ -445,8 +462,13 @@ export class AudioManager {
     if (this.events.onComplete) {
       this.events.onComplete();
     }
-    // Auto play next song
-    this.playNext();
+    // Only auto-play next if playlist has more than 1 song
+    if (this.playlist.length > 1) {
+      this.playNext();
+    } else {
+      // Single song or empty playlist - just stop
+      this.stop();
+    }
   }
 }
 

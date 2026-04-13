@@ -1,4 +1,4 @@
-import router from '@ohos.router';
+﻿import router from '@ohos.router';
 import { Song, DEFAULT_SONGS } from '../model/Song';
 import { AudioManager, PlaybackState, getAudioManager } from '../utils/AudioManager';
 import { AlbumCoverSimple } from '../components/AlbumCover';
@@ -119,7 +119,7 @@ struct PlayList {
     }
     .width('100%')
     .height('100%')
-    .backgroundColor('#1a1a2e')
+    .backgroundColor('#2D1B35')
   }
 
   /**
@@ -133,20 +133,20 @@ struct PlayList {
         Button() {
           Text('←')
             .fontSize(24)
-            .fontColor('#ffffff')
+            .fontColor('#FFF5F0')
         }
         .width(48)
         .height(48)
         .type(ButtonType.Circle)
-        .backgroundColor('transparent')
+        .backgroundColor('rgba(255, 200, 180, 0.12)')
         .onClick(() => {
           this.goBack();
         })
 
-        Text('Playlist')
+        Text('播放列表')
           .fontSize(24)
           .fontWeight(FontWeight.Bold)
-          .fontColor('#ffffff')
+          .fontColor('#FFF5F0')
 
         Blank()
       }
@@ -154,9 +154,9 @@ struct PlayList {
       .padding({ left: 16, right: 16, top: 16, bottom: 8 })
 
       // Playlist info
-      Text(`${this.songs.length} songs`)
+      Text(`${this.songs.length} 首歌曲`)
         .fontSize(14)
-        .fontColor('#a0a0b0')
+        .fontColor('#C8A8B0')
         .padding({ left: 16, bottom: 8 })
     }
     .width('100%')
@@ -179,13 +179,13 @@ struct PlayList {
         Text(song.title)
           .fontSize(16)
           .fontWeight(this.isCurrentSong(index) ? FontWeight.Bold : FontWeight.Medium)
-          .fontColor(this.isCurrentSong(index) ? '#6366f1' : '#ffffff')
+          .fontColor(this.isCurrentSong(index) ? '#FF8C69' : '#FFF5F0')
           .maxLines(1)
           .textOverflow({ overflow: TextOverflow.Ellipsis })
 
         Text(song.artist)
           .fontSize(13)
-          .fontColor('#a0a0b0')
+          .fontColor('#C8A8B0')
           .maxLines(1)
           .textOverflow({ overflow: TextOverflow.Ellipsis })
           .margin({ top: 4 })
@@ -197,7 +197,7 @@ struct PlayList {
       // Duration
       Text(formatTime(song.duration))
         .fontSize(12)
-        .fontColor('#606070')
+        .fontColor('#A88888')
         .margin({ right: 8 })
 
       // Play/Pause button (only show for current song)
@@ -213,12 +213,12 @@ struct PlayList {
         Button() {
           Text('▶')
             .fontSize(14)
-            .fontColor('#6366f1')
+            .fontColor('#FF8C69')
         }
         .width(40)
         .height(40)
         .type(ButtonType.Circle)
-        .backgroundColor('transparent')
+        .backgroundColor('rgba(255, 140, 105, 0.12)')
         .onClick(() => {
           this.playSong(index);
         })

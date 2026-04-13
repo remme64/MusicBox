@@ -41,9 +41,9 @@ export struct VolumeControl {
    */
   private getVolumeIconColor(): string {
     if (!this.isEnabled) {
-      return '#606060';
+      return '#999999';
     }
-    return '#ffffff';
+    return '#666666';
   }
 
   aboutToAppear(): void {
@@ -62,13 +62,13 @@ export struct VolumeControl {
         Column()
           .width(this.sliderValue + '%')
           .height(4)
-          .backgroundColor('#6366f1')
+          .backgroundColor('#FF8C69')
           .borderRadius(2)
 
         Column()
           .layoutWeight(1)
           .height(4)
-          .backgroundColor('#404060')
+          .backgroundColor('#5A3A3A')
           .borderRadius(2)
       }
       .width(this.SLIDER_WIDTH)
@@ -90,7 +90,7 @@ export struct VolumeControl {
       top: 8,
       bottom: 8
     })
-    .backgroundColor('rgba(42, 42, 74, 0.6)')
+    .backgroundColor('rgba(255, 200, 180, 0.12)')
     .borderRadius(20)
   }
 }
