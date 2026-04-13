@@ -2,6 +2,8 @@
  * MiniPlayer - Compact bottom music player bar
  * Displays current song with play/pause control
  */
+import { Song } from '../model/Song';
+
 @Component
 export struct MiniPlayer {
   // Current song info

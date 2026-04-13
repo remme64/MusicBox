@@ -2,6 +2,8 @@
  * SongCard - Displays a song in list format
  * Used in library, recommendations, and playlists
  */
+import { Song } from '../model/Song';
+
 @Component
 export struct SongCard {
   // Song data
@@ -169,8 +171,3 @@ export struct SongCardCompact {
     })
   }
 }
-
-/**
- * Import Song type
- */
-import { Song } from '../model/Song';
